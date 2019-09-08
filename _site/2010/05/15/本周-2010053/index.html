@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>本周 201005#3 | Raymond’s Blog</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="本周 201005#3" />
+<meta name="author" content="raymondchen625" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="拜读了一下dbanotes的feed上转载的ikewu撰写的有关force.com的技术文章。其中多租户（Multi-tenancy）概念，就是我对SaaS架构中最感兴趣的一个方面。未听过这个名词之前，不知道用什么简短词语去描述，大概考虑过“客户实体级的虚拟化”之类的描述。取个名字还是很重要，尽管不了解的就认为是buzzword。这里抄录文中的多租户的优缺点：" />
+<meta property="og:description" content="拜读了一下dbanotes的feed上转载的ikewu撰写的有关force.com的技术文章。其中多租户（Multi-tenancy）概念，就是我对SaaS架构中最感兴趣的一个方面。未听过这个名词之前，不知道用什么简短词语去描述，大概考虑过“客户实体级的虚拟化”之类的描述。取个名字还是很重要，尽管不了解的就认为是buzzword。这里抄录文中的多租户的优缺点：" />
+<link rel="canonical" href="http://localhost:4000/2010/05/15/%E6%9C%AC%E5%91%A8-2010053/" />
+<meta property="og:url" content="http://localhost:4000/2010/05/15/%E6%9C%AC%E5%91%A8-2010053/" />
+<meta property="og:site_name" content="Raymond’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2010-05-14T22:52:48-04:00" />
+<script type="application/ld+json">
+{"description":"拜读了一下dbanotes的feed上转载的ikewu撰写的有关force.com的技术文章。其中多租户（Multi-tenancy）概念，就是我对SaaS架构中最感兴趣的一个方面。未听过这个名词之前，不知道用什么简短词语去描述，大概考虑过“客户实体级的虚拟化”之类的描述。取个名字还是很重要，尽管不了解的就认为是buzzword。这里抄录文中的多租户的优缺点：","author":{"@type":"Person","name":"raymondchen625"},"@type":"BlogPosting","url":"http://localhost:4000/2010/05/15/%E6%9C%AC%E5%91%A8-2010053/","headline":"本周 201005#3","dateModified":"2010-05-14T22:52:48-04:00","datePublished":"2010-05-14T22:52:48-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2010/05/15/%E6%9C%AC%E5%91%A8-2010053/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raymond's Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Raymond&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">本周 201005#3</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2010-05-14T22:52:48-04:00" itemprop="datePublished">May 14, 2010
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">raymondchen625</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>拜读了一下dbanotes的feed上转载的<a href="http://peopleyun.com/" target="_blank" rel="noopener noreferrer">ikewu</a>撰写的有关force.com的技术文章。其中多租户（Multi-tenancy）概念，就是我对SaaS架构中最感兴趣的一个方面。未听过这个名词之前，不知道用什么简短词语去描述，大概考虑过“客户实体级的虚拟化”之类的描述。取个名字还是很重要，尽管不了解的就认为是buzzword。这里抄录文中的多租户的优缺点：</p>
+
+<p>多租户的优点：</p>
+
+<ul>
+  <li>经济：因为通过一个软件实例被多个组织共享，从而减低了整体资源的消耗，也同时减低应用运行的成本和相应的管理开支。</li>
+  <li>易于更新和开发：因为所有组织都共享同一套核心代码，所以能够让软件更新和开发更简单。</li>
+  <li>管理方便：首先，通过使用了多租户架构能减少物理资源和软件资源，这将简化管理。其次。由于多租户软件主要由有经验的云供应商运营，所以能依赖那 些非常经验的管理人员来提升效率。</li>
+</ul>
+
+<p>多租户的缺点：</p>
+
+<ul>
+  <li>更复杂：由于一个软件需要做出极大地修改，才能支持多租户架构，而且这种修改，往往会增加整个软件在架构方面的复杂性。</li>
+  <li>不够安全：因为众多组织的应用和数据共享同一套软件和基础设施，如果出现机器宕机，软件出现问题或者大规模的数据被暴露等情况，将会造成更严重的 后果，因为影响面更大。</li>
+</ul>
+
+<p>研究了一下Greasemonkey，的确很容易学。从下载完一本官方的90页PDF教程，到完成第一个<a href="http://userscripts.org/scripts/show/76583" target="_self" rel="noopener noreferrer">替换ICP备案字眼的小脚本</a>，都是在一个小时内完成的事。只要原来懂一点JavaScript，都很容易上手。另外有个半自动注册某网站通行证的，也是十来分钟就搞掂，这里不便公开。不想夸大Greasemonkey的用处，但当你在浏览器内需要做很多重复劳动时，又或者你对某个网站的网页设计看不顺眼时，你应该想起它。</p>
+
+<p>选择博客服务商（BSP）和选择VPS服务一样，各有各的标准。对全新不考虑旧数据迁移的情况来讲，我的选择标准大概有：1、搭建和升级是否方便； 2、 数据备份和还原要简单，必要时如果更换博客应用要做数据迁移，必须是主流Blog系统格式； 3、 允许支持全文RSS输出； 4、支持域名绑定； 5、不会被审查；  而相对不太重视的包括：1、 图片管理是否方便； 2、页面模板是否够多； 3、 使用什么语言开发</p>
+
+  </div><a class="u-url" href="/2010/05/15/%E6%9C%AC%E5%91%A8-2010053/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Raymond&#39;s Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Raymond&#39;s Blog</li><li><a class="u-email" href="mailto:raymond@raymondchen.com">raymond@raymondchen.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">raymondchen625</span></a></li><li><a href="https://www.twitter.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">raymondchen625</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

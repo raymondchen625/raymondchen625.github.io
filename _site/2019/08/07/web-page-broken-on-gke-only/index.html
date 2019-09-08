@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Web Page Broken on GKE only? | Raymond’s Blog</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Web Page Broken on GKE only?" />
+<meta name="author" content="raymondchen625" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Everybody was confused when we found a webpage running in Tomcat in a Docker container was broken only on GKE(Google Kubernetes Engine). It worked well in all other environments, including Kubernetes built on GCE(Google Compute Engine) VMs(OS: CentOS 7)or local Oracle VirtualBox VMs, Docker engine on macOS or standalone Tomcat outside of docker container. Shouldn’t container be OS-agnostic? How could it affect a web page, which is the least likely to be affected?" />
+<meta property="og:description" content="Everybody was confused when we found a webpage running in Tomcat in a Docker container was broken only on GKE(Google Kubernetes Engine). It worked well in all other environments, including Kubernetes built on GCE(Google Compute Engine) VMs(OS: CentOS 7)or local Oracle VirtualBox VMs, Docker engine on macOS or standalone Tomcat outside of docker container. Shouldn’t container be OS-agnostic? How could it affect a web page, which is the least likely to be affected?" />
+<link rel="canonical" href="http://localhost:4000/2019/08/07/web-page-broken-on-gke-only/" />
+<meta property="og:url" content="http://localhost:4000/2019/08/07/web-page-broken-on-gke-only/" />
+<meta property="og:site_name" content="Raymond’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-07T04:37:26-04:00" />
+<script type="application/ld+json">
+{"description":"Everybody was confused when we found a webpage running in Tomcat in a Docker container was broken only on GKE(Google Kubernetes Engine). It worked well in all other environments, including Kubernetes built on GCE(Google Compute Engine) VMs(OS: CentOS 7)or local Oracle VirtualBox VMs, Docker engine on macOS or standalone Tomcat outside of docker container. Shouldn’t container be OS-agnostic? How could it affect a web page, which is the least likely to be affected?","author":{"@type":"Person","name":"raymondchen625"},"@type":"BlogPosting","url":"http://localhost:4000/2019/08/07/web-page-broken-on-gke-only/","headline":"Web Page Broken on GKE only?","dateModified":"2019-08-07T04:37:26-04:00","datePublished":"2019-08-07T04:37:26-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2019/08/07/web-page-broken-on-gke-only/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raymond's Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Raymond&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Web Page Broken on GKE only?</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-08-07T04:37:26-04:00" itemprop="datePublished">Aug 7, 2019
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">raymondchen625</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Everybody was confused when we found a webpage running in Tomcat in a Docker container was broken only on GKE(Google Kubernetes Engine). It worked well in all other environments, including Kubernetes built on GCE(Google Compute Engine) VMs(OS: CentOS 7)or local Oracle VirtualBox VMs, Docker engine on macOS or standalone Tomcat outside of docker container. Shouldn’t container be OS-agnostic? How could it affect a web page, which is the least likely to be affected?</p>
+
+<p>There are a few things going on:</p>
+
+<ol>
+  <li>The web page is rendered by <a href="https://myfaces.apache.org/">MyFaces</a>. There are multiple elements on the JSF page with ‘rendered’ attribute. When it works correctly, only one of the element will render. Those conditions can’t be true at the same time;</li>
+  <li>We have a myfaces-shaded jar file on our classpath, which is a duplicate jar of other ‘real’ MyFaces implementation. If myfaces-shaded is loaded, it will throw some errors and enters an incorrect state. In this state, the ‘rendered’ attribute will be ignored on #1 page, which causes all elements to render. This is the direct cause of the broken web page;</li>
+  <li>In our ‘working’ environments other than GKE, the myfaces-shaded never gets picked up by the classloader, which is why we never discovered this problem before. But we did have developers find this from time to time. It disappeared after restarting Tomcat. So nobody has actually followed this through;</li>
+  <li>In GKE, the myfaces-shaded gets picked up by the classloader for some reason. Once we removed the myfaces-shaded in the classpath, it started to work.</li>
+</ol>
+
+<p><img class="alignnone size-full wp-image-1653" src="http://localhost/wp-content/uploads/2019/08/gke.png" alt="gke" width="700" height="262" srcset="http://localhost/wp-content/uploads/2019/08/gke.png 700w, http://localhost/wp-content/uploads/2019/08/gke-300x112.png 300w" sizes="(max-width: 700px) 100vw, 700px" /></p>
+
+<p>I suspect the GKE’s host OS, Container-Optimized OS from Google, has some optimization on the file system behaviour, which causes the order change when JVM classloader loads a list of JAR files. Imagine the JVM asks for a list of inodes with a file path list, the OS decides to optimize the response time, trying to minimize the mechanical movement. Hopefully, all data can be retrieved in one disk magnetic head trip. But the file distribution on the disk could be widely spreaded. If the head doesn’t want to go back and forth, the file order it picks up couldn’t be the same as in the API call parameter. I think this might not be an issue if the API clearly states the order is not guaranteed. And if there is an asynchronous mechanism, the JVM process might have already started to get callbacks and load jar files as the head moves across the disc radius.</p>
+
+<p>Nevertheless, an application should never have 2 same classes with different versions on the classpath. The loading order, which shouldn’t be relied on in the first place, in other environments hides this bug by accident.</p>
+
+  </div><a class="u-url" href="/2019/08/07/web-page-broken-on-gke-only/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Raymond&#39;s Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Raymond&#39;s Blog</li><li><a class="u-email" href="mailto:raymond@raymondchen.com">raymond@raymondchen.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">raymondchen625</span></a></li><li><a href="https://www.twitter.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">raymondchen625</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

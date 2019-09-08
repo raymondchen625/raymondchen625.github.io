@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Redmine 1.1.1升級到2.2.3 | Raymond’s Blog</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="Redmine 1.1.1升級到2.2.3" />
+<meta name="author" content="raymondchen625" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="部門一直在用的Redmine版本是1.1.1，比較舊，很多新插件都無法使用。終於要狠下決心將它升級，到2.2.3。" />
+<meta property="og:description" content="部門一直在用的Redmine版本是1.1.1，比較舊，很多新插件都無法使用。終於要狠下決心將它升級，到2.2.3。" />
+<link rel="canonical" href="http://localhost:4000/2013/03/09/redmine-1-1-1%E5%8D%87%E7%B4%9A%E5%88%B02-2-3/" />
+<meta property="og:url" content="http://localhost:4000/2013/03/09/redmine-1-1-1%E5%8D%87%E7%B4%9A%E5%88%B02-2-3/" />
+<meta property="og:site_name" content="Raymond’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-03-09T06:03:21-05:00" />
+<script type="application/ld+json">
+{"description":"部門一直在用的Redmine版本是1.1.1，比較舊，很多新插件都無法使用。終於要狠下決心將它升級，到2.2.3。","author":{"@type":"Person","name":"raymondchen625"},"@type":"BlogPosting","url":"http://localhost:4000/2013/03/09/redmine-1-1-1%E5%8D%87%E7%B4%9A%E5%88%B02-2-3/","headline":"Redmine 1.1.1升級到2.2.3","dateModified":"2013-03-09T06:03:21-05:00","datePublished":"2013-03-09T06:03:21-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2013/03/09/redmine-1-1-1%E5%8D%87%E7%B4%9A%E5%88%B02-2-3/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raymond's Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Raymond&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Redmine 1.1.1升級到2.2.3</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-03-09T06:03:21-05:00" itemprop="datePublished">Mar 9, 2013
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">raymondchen625</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>部門一直在用的Redmine版本是1.1.1，比較舊，很多新插件都無法使用。終於要狠下決心將它升級，到2.2.3。</p>
+
+<p>用了大概兩天時間研究兩個版本直接的DB結構變化，升級起來還好，沒有原來想象中那麽困難。一來是運氣不錯，兩個版本的數據結構變化並不特別劇烈；二是要多謝Bitnami，它提供的打包讓安裝過程容易了很多。</p>
+
+<p>簡單的升級思路和過程：</p>
+
+<p>1、 在舊版數據庫中用mysqldump導出數據，忽略一些在新版中已經不存在的table以及幾個特殊表（包括schema_migrations和repositories）；</p>
+
+<blockquote>
+  <p>mysqldump -ubn_redmine -p -y -c -n -e -rredmine-1.1.1latin.sql  –ignore-table=bitnami_redmine.repositories –ignore-table=bitnami_redmine.schema_migrations –default-character-set=latin1 bitnami_redmine</p>
+</blockquote>
+
+<p>2、 將導出的sql腳本用piconv轉碼（如果原來的數據庫不是latin1格式，這步就可以不做），變成utf8格式；</p>
+
+<blockquote>
+  <p>piconv -f utf8 -t gbk redmine-1.1.1latin.sql &gt; gbk.sql<br />
+piconv -f gbk -t utf8 gbk.sql &gt; redmine_utf8.sql<br />
+sed ‘s/latin1/utf8/g’ redmine_utf8.sql &gt; redmine_utf8_final.sql</p>
+</blockquote>
+
+<p>3、 在新版數據庫中建立一個“臨時庫”，將舊版數據全數導入；在臨時庫上運行幾個alter table腳本，目的是將臨時庫的數據結構改到和新版一樣；然後再將臨時庫的數據用mysqldump導出；</p>
+
+<blockquote>
+  <p>/opt/redmine-2.2.3-0/mysql/bin/mysql –default-character-set=utf8 -utemp_user -p temp_db &lt; redmine_utf8_final.sql</p>
+
+  <p>/opt/redmine-2.2.3-0/mysql/bin/mysql -utemp_user -p temp_db<br />
+alter table issues add is_private tinyint(1) not null default 0 ,drop column ir_position;<br />
+alter table versions drop column ir_start_date, drop column ir_end_date;</p>
+
+  <p>/opt/redmine-2.2.3-0/mysql/bin/mysqldump -y -c -t -n -e -rredmine_adjusted.sql –default-character-set=utf8 -utemp_user -p temp_db;</p>
+</blockquote>
+
+<p>4、 在新版的redmine數據庫中執行幾個truncate table的操作，目的是為了批量插入新數據時不至於主鍵衝突錯誤；</p>
+
+<blockquote>
+  <p>/opt/redmine-2.2.3-0/mysql/bin/mysql -ubitnami -p bitnami_redmine<br />
+truncate table enumerations;<br />
+truncate table issue_statuses;<br />
+truncate table roles;<br />
+truncate table trackers;<br />
+truncate table users;<br />
+truncate table workflows;</p>
+</blockquote>
+
+<p>5、 將之前臨時庫導出的文件導入新版的Redmine數據庫。順利導入完成之後，進入新版數據庫，運行幾條sql命令更新用戶的密碼（是因為新版對用戶密碼用了salt加密，已經無法直接用舊版保存的密碼，所有用戶的密碼都必須重設）；</p>
+
+<blockquote>
+  <p>/opt/redmine-2.2.3-0/mysql/bin/mysql -ubitnami -p bitnami_redmine –default-character-set=utf8 &lt; redmine_adjusted.sql;</p>
+
+  <p>/opt/redmine-2.2.3-0/mysql/bin/mysql -ubitnami -p bitnami_redmine;</p>
+
+  <p>update users set hashed_password=’01258c2a5f16c0700e615cc16632fa3fff4e8fa2′, salt=’56aafb8190971508901c6d6269e49859′ where login!=’raymond.chen’ and login is not null and login!=”;</p>
+</blockquote>
+
+<p>6、 將舊版Redmine的files目錄下的用戶上傳附件數據，遷移到新版的對應files目錄下，注意目錄權限要保持和原來一樣（775和root:daemon）；</p>
+
+<p>7、 在plugins目錄下安裝必須的插件；</p>
+
+<p>8、 在configurations.yml文件中添加回相關smtp配置以發送郵件</p>
+
+<p>9、 啟動Redmine服務，用管理員身份，到後台將需要的SVN重新配置一下就好了。</p>
+
+<p> </p>
+
+<p> </p>
+
+  </div><a class="u-url" href="/2013/03/09/redmine-1-1-1%E5%8D%87%E7%B4%9A%E5%88%B02-2-3/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Raymond&#39;s Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Raymond&#39;s Blog</li><li><a class="u-email" href="mailto:raymond@raymondchen.com">raymond@raymondchen.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">raymondchen625</span></a></li><li><a href="https://www.twitter.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">raymondchen625</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

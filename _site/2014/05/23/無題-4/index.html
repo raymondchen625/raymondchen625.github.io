@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>無題 | Raymond’s Blog</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="無題" />
+<meta name="author" content="raymondchen625" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="閒來無事，升級了一下WordPress，然後網站出現『Briefly unavailable for scheduled maintenance』的提示，重啓Apache Httpd和MySQL都無濟於事。是有過那麼一陣子緊張，好久沒有搞php了，會不會搞唔掂？" />
+<meta property="og:description" content="閒來無事，升級了一下WordPress，然後網站出現『Briefly unavailable for scheduled maintenance』的提示，重啓Apache Httpd和MySQL都無濟於事。是有過那麼一陣子緊張，好久沒有搞php了，會不會搞唔掂？" />
+<link rel="canonical" href="http://localhost:4000/2014/05/23/%E7%84%A1%E9%A1%8C-4/" />
+<meta property="og:url" content="http://localhost:4000/2014/05/23/%E7%84%A1%E9%A1%8C-4/" />
+<meta property="og:site_name" content="Raymond’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-05-23T14:55:56-04:00" />
+<script type="application/ld+json">
+{"description":"閒來無事，升級了一下WordPress，然後網站出現『Briefly unavailable for scheduled maintenance』的提示，重啓Apache Httpd和MySQL都無濟於事。是有過那麼一陣子緊張，好久沒有搞php了，會不會搞唔掂？","author":{"@type":"Person","name":"raymondchen625"},"@type":"BlogPosting","url":"http://localhost:4000/2014/05/23/%E7%84%A1%E9%A1%8C-4/","headline":"無題","dateModified":"2014-05-23T14:55:56-04:00","datePublished":"2014-05-23T14:55:56-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2014/05/23/%E7%84%A1%E9%A1%8C-4/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raymond's Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Raymond&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">無題</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-05-23T14:55:56-04:00" itemprop="datePublished">May 23, 2014
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">raymondchen625</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>閒來無事，升級了一下WordPress，然後網站出現『Briefly unavailable for scheduled maintenance』的提示，重啓Apache Httpd和MySQL都無濟於事。是有過那麼一陣子緊張，好久沒有搞php了，會不會搞唔掂？</p>
+
+<p>Google了一下，原來要刪除主目錄下的.maintenance文件就可以了，一試果然。。。相信是升級時做了一下什麼操作，這個文件沒有被刪除成功而已。</p>
+
+<p>工作兩個月了，這幾天在不問人的前提下嘗試把本地數據庫由MS SQL改爲Oracle，終於基本試成功了。倒不是特別厲害的事，因爲本來就是支持Oracle的，很多客戶就是用Oracle，而且在SIT的VM上也是Oracle，只是自己摸索，還是需要之前一點的經驗，有靠猜的成分。</p>
+
+<p><img class="alignleft  wp-image-975" src="http://www.raymondchen.com/wp-content/uploads/2014/05/2014-05-08-17.33.40.jpg" alt="Dandelions" width="411" height="545" /> 春暖花開之後，後院多了很多蒲公英。遠遠看去，其實也很好看。但蒲公英是屬於雜草行列的，生命力強，播種速度快。鄰居都欲除之而後快，我總不能在後院種植蒲公英。。。</p>
+
+<p>最近的健康，好像不錯。『瞓嚟頸』這些小毛病是會有的，但總體還好。最開心是前段時間有過長在腿上多年的瘡還是疣的物體忽然有點痛，還以外什麼惡化的東東。去診所睇症，醫生看了不夠一分鐘就開了個藥膏。搽了幾日居然脫落了，還以外這個瘡要跟隨自己一世，沒想到就這樣講拜拜~</p>
+
+<p>有線電視很少睇，又貴。最近在盤算著在世界盃結束之後就取消TV，改成用普通天線接收免費的電視臺，作爲收看本地新聞之用。再加一個這邊流行的TVPad，可以看各種中港電視臺，月費，還可以睇波。不用再用黃師傅的VPN翻回去了。</p>
+
+<p> </p>
+
+<p> </p>
+
+  </div><a class="u-url" href="/2014/05/23/%E7%84%A1%E9%A1%8C-4/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Raymond&#39;s Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Raymond&#39;s Blog</li><li><a class="u-email" href="mailto:raymond@raymondchen.com">raymond@raymondchen.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">raymondchen625</span></a></li><li><a href="https://www.twitter.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">raymondchen625</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

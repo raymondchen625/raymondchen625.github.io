@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>OAuth原理 | Raymond’s Blog</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="OAuth原理" />
+<meta name="author" content="raymondchen625" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="OAuth原理比较简单，花时间看了一下它的Spec 1.0a整理的笔记。把基本的原理整理一下。" />
+<meta property="og:description" content="OAuth原理比较简单，花时间看了一下它的Spec 1.0a整理的笔记。把基本的原理整理一下。" />
+<link rel="canonical" href="http://localhost:4000/2010/04/25/oauth%E5%8E%9F%E7%90%86/" />
+<meta property="og:url" content="http://localhost:4000/2010/04/25/oauth%E5%8E%9F%E7%90%86/" />
+<meta property="og:site_name" content="Raymond’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2010-04-25T08:47:44-04:00" />
+<script type="application/ld+json">
+{"description":"OAuth原理比较简单，花时间看了一下它的Spec 1.0a整理的笔记。把基本的原理整理一下。","author":{"@type":"Person","name":"raymondchen625"},"@type":"BlogPosting","url":"http://localhost:4000/2010/04/25/oauth%E5%8E%9F%E7%90%86/","headline":"OAuth原理","dateModified":"2010-04-25T08:47:44-04:00","datePublished":"2010-04-25T08:47:44-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2010/04/25/oauth%E5%8E%9F%E7%90%86/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raymond's Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Raymond&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">OAuth原理</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2010-04-25T08:47:44-04:00" itemprop="datePublished">Apr 25, 2010
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">raymondchen625</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://oauth.net/" target="_blank" rel="noopener noreferrer">OAuth</a>原理比较简单，花时间看了一下它的<a href="https://oauth.net/core/1.0a" target="_blank" rel="noopener noreferrer">Spec 1.0a</a>整理的笔记。把基本的原理整理一下。</p>
+
+<p>简单地讲，OAuth解决的问题就是：我在网站A有帐号密码和一些需要登录才能访问的数据，我想让网站B访问这些数据，但是我不想把密码告诉网站B。解决方案就是：给B另外一个密码。</p>
+
+<p>基本精神就是这么简单，剩下的只是一些细节的问题，例如怎样确认这的确是用户的授权，通讯中如何保密等问题。</p>
+
+<p>解决方案展开一点讲，就是：网站A要问一下用户：你是否同意给网站B授权访问你的数据？如果你回答“是”，那网站A就分配给网站B一个帐号密码，网站B就可以用这个帐号密码代表用户访问网站A上面这个用户的数据。</p>
+
+<p>详细的资料在上面说的Spec讲得比较清楚，这里不重复，Spec的内容并不长。这里简单讲讲授权的过程。讲过程前先明确几个概念：</p>
+
+<ul>
+  <li>服务提供方（Service Provider）：用户使用了这里的服务，在这里有帐号密码，还有其它数据的地方。就是上面说的网站A；</li>
+  <li>消费者（Consumer）： 另一方，就是上面说的网站B。他需要访问服务提供方（网站A）上面的用户数据；</li>
+  <li>用户（User）：就是用户啦（^_^），指个人。</li>
+</ul>
+
+<p>把名词套进去，就是：消费者希望以后能自动代表用户访问用户在服务提供方上的数据，在这之前，需要用户向服务提供方作一个授权。服务提供方验证这个授权之后，以后就可以像消费者提供这个用户的数据。这个要求授权的过程就是OAuth要做的事。</p>
+
+<p>步骤：</p>
+
+<ol>
+  <li>消费者的开发人员阅读服务提供方的有关文档。在服务提供方上面注册自己的信息，获得一个消费者ID和消费者密码。注册的信息可能会被用于服务提供方审核，也可能被展现到将来的授权页面上；而消费者ID和消费者密码则用于消费者和服务提供方的程序通讯用，用于说明这个请求是哪个消费者发来的；</li>
+  <li>用户在消费者的网站上浏览，触发了需要访问服务提供方上数据的事件，例如按了一个按钮。消费者的服务器向服务提供方的服务发送请求（请求时带上自己的消费者ID和密码），获得一个未授权的请求标识（oauth_token）。这个未授权请求标识返回到用户手里的时候，会被作为参数值，重定向到服务提供方的网站；</li>
+  <li>用户此时来到服务提供方的网站。服务提供方接收到未授权请求标识这个参数，会验证一下。因为这个标识就是服务提供方在第二步生成的，因此它必定可以识别出这是属于哪个消费者的。另外服务提供方会看看用户的状态是否已登录，如果未登录则提示登录。登录验证OK之后，服务提供方展示消费者的信息和需要授予的权限，让用户选择授权还是拒绝；</li>
+  <li>用户选择授权之后，服务提供方会生成一个校验码。既可以自动重定向把校验码告诉消费者（目标URL在注册时已经提供了），在不能这样做的情况下也可以显示校验码让用户记下来另行输入。总之是要将校验码通知消费者的一方；</li>
+  <li>消费者收到校验码之后，连同刚才的未授权请求标识，用户ID，消费者ID以及消费者密码等等信息组合在一起，发给服务提供方指定的URL；</li>
+  <li>服务提供方收到这堆参数之后，分别校验：未授权访问标识未被请求过（避免被拦截重用）、标识码正确、用户ID匹配、请求的签名信息正确。都通过之后，就会生成Access Token and Token Secret，返回给消费者。消费者要把它记下来，以后就是用这个两个参数代表用户访问这个用户在服务提供方上的数据。</li>
+  <li>只有用户没有在服务提供方上撤销这个授权，而这授权没有过期的话，就可以一直使用。</li>
+</ol>
+
+<p>搞得比原来想象中复杂了一点。主要是因为考虑到网络传输的过程中可能会被窃听拦截，多种访问方式（不一定通过浏览器），以及在用户体验上的妥协（例如用户可以先按了要求授权再在服务提供方的网站上登录）等。</p>
+
+  </div><a class="u-url" href="/2010/04/25/oauth%E5%8E%9F%E7%90%86/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Raymond&#39;s Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Raymond&#39;s Blog</li><li><a class="u-email" href="mailto:raymond@raymondchen.com">raymond@raymondchen.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">raymondchen625</span></a></li><li><a href="https://www.twitter.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">raymondchen625</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

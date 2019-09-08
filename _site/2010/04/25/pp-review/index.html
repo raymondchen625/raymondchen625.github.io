@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>PP Review | Raymond’s Blog</title>
+<meta name="generator" content="Jekyll v3.7.4" />
+<meta property="og:title" content="PP Review" />
+<meta name="author" content="raymondchen625" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="听同事讲两年前一起做的项目PP已经正式下线，功能合并到另一个项目中。我去看了一下，的确合并是一个合理的产品运营决定，PP总算找到了组织。离开这个项目后，一直想写个总结，拖欠了一段时间，也是时候还了。" />
+<meta property="og:description" content="听同事讲两年前一起做的项目PP已经正式下线，功能合并到另一个项目中。我去看了一下，的确合并是一个合理的产品运营决定，PP总算找到了组织。离开这个项目后，一直想写个总结，拖欠了一段时间，也是时候还了。" />
+<link rel="canonical" href="http://localhost:4000/2010/04/25/pp-review/" />
+<meta property="og:url" content="http://localhost:4000/2010/04/25/pp-review/" />
+<meta property="og:site_name" content="Raymond’s Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2010-04-24T23:59:35-04:00" />
+<script type="application/ld+json">
+{"description":"听同事讲两年前一起做的项目PP已经正式下线，功能合并到另一个项目中。我去看了一下，的确合并是一个合理的产品运营决定，PP总算找到了组织。离开这个项目后，一直想写个总结，拖欠了一段时间，也是时候还了。","author":{"@type":"Person","name":"raymondchen625"},"@type":"BlogPosting","url":"http://localhost:4000/2010/04/25/pp-review/","headline":"PP Review","dateModified":"2010-04-24T23:59:35-04:00","datePublished":"2010-04-24T23:59:35-04:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2010/04/25/pp-review/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Raymond's Blog" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Raymond&#39;s Blog</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">PP Review</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2010-04-24T23:59:35-04:00" itemprop="datePublished">Apr 24, 2010
+      </time>• <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">raymondchen625</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>听同事讲两年前一起做的项目PP已经正式下线，功能合并到另一个项目中。我去看了一下，的确合并是一个合理的产品运营决定，PP总算找到了组织。离开这个项目后，一直想写个总结，拖欠了一段时间，也是时候还了。</p>
+
+<p>项目简单的情况：</p>
+
+<ul>
+  <li>
+    <p>功能：把相片放在目录形状的展区展示，相片存储由另外的项目提供，本项目只负责分类展示、投票打分之类的功能。后期加入一些社交功能。</p>
+  </li>
+  <li>
+    <p>团队：开头两个月只有我一人（八年开发经验，不是高手也算老手），后来加入一人（1-2年经验），再加入两人（都是毕业生，一个有些经验，另外一个比较生手）。几个月后，比较生手的同事转去另外的团队，还有一人在推出几个版本之后调到另外的团队。所以大部分时间，总共有三个人开发。在系统运维方面，有同事对出现的问题协助一下，但不是dedicate给这个项目。</p>
+  </li>
+</ul>
+
+<p>主要的问题和犯过的错误：</p>
+
+<ol>
+  <li>数据模型方面。当时No-SQL还没有这两年那么火，因此不在视线范围内。选择了关系数据库，在前端页面和JSON数据部分加了Cache。如果现在再做，这个值得仔细思量。</li>
+  <li>其中一个很重要的需求，没有把握得很透：上层目录可以看到下层所有目录的相片内容。这个会导致底层一个数据变化，导致上层的剧烈动荡。简单讲就是在底部插了个新图，上层的每一页都要变。如果这一层有几百页（显然层次越高页数越多），刷一遍是很费时间的。这个需求是后来才提出来的，在开头设计当然没有考虑，但在后来的设计中考虑得也不是很足够。</li>
+  <li>缓存设计方面。采用了伪页面缓存的方式。缓存的东西只保存在Squid，再后面并没有真实的HTML文件，只是转发到Java App Server。初衷是希望减少刷新文件的麻烦和管理成本，这个目的应该是达到的。但会让发生性能问题时，运维组的同事能够帮忙的几率减低。这是一条线应该划在哪里、以及架构的复杂程度的问题。当然这样的设计算不上“复杂”，但问题是没有了html文件存在，运维工程师就要面对你的应用服务器，也就是要面对你的程序。他们不太可能很了解程序的，公司又不是只有一个产品。因此给我的感觉是出现问题时，找他们帮忙他们很热心，但是我们并没提供一个好的环境，因此效果并不理想。即使现在也不能很武断地说这种缓存方式就很差，其实还是要看环境。在设计架构的时候，你不但要考虑软硬件、访问量访问模式这些技术因素，还要考虑组织方面的因素，你如何做到让你的架构是方便别人支持你的？</li>
+  <li>测试方面。开发领域的测试，例如单元测试，我们是做得比较理想的，因为是我们开发人员的领域。但系统方面的测试就做得不好，例如访问模型的建立，性能测试的规划，测试数据分析和跟踪等等这些，有做一些，但没有很有效地嵌入到开发的流程里。</li>
+  <li>系统性能。对于系统的瓶颈位置、运行时的监控和预警、问题的定位，采取的手段不够高级，工具不够先进。系统不能降级运行。能降级运行的系统是有前提条件的，要知道有哪些热点、要有支撑的架构、要有产品策划人员的支持配合。但反正，除了一些细节上的应急处理，基本上是不能降级运行。</li>
+  <li>需求分析。不要迷信UML，但也不要全盘推翻。一开头的时候的确画了一些UML的类图，但发现其实UML里面那个U，实在是太理想化的目标。对于一个本身在开发流程、系统设计方法、以致人员技术水平甚至团队稳定水平都处在初级阶段的环境，UML实在不宜太过神化。开头画了很多图，做了很多文档，用例文档写了长长的，什么主要路线、前置条件、后置条件，后来发现没达到预期效果。策划给技术面子，不提意见。但实际上不是没看懂，就是没空看。后来做了瘦身，基本上UML文档的应用范围，都仅限于在开发团队内进行设计信息的传递，和策划再无关系。团队内还是要的，毕竟表的关系，重要的流程，一个图顶一千字。那从产品策划到技术这个最容易丢失大量信息的环节，就使用策划使用的语言好了，我们做的，只是对一些名词作了统一，不要一个词N种叫法。</li>
+  <li>团队。在项目组里面，少了个能做页面的，在进度和修改上都很受制肘；少了个对系统和运维方面有足够经验和知识的在团队里面，导致设计的时候缺少很好的评估，运营的时候消耗大量开发资源。在集成测试上，由策划组织运营的团队承担，也是一个不得已的办法，效果分两方面看。在功能性和UI的测试验收方面，由策划运营的人员来做是最合适的，找专门的技术测试团队，反而摸不着头脑；但是在性能、安全等方面，确实缺乏足够的技术力量来做，上面第4、5点也提过。这是做得不足够的地方。</li>
+  <li>自动化方面。有很多环节自动化未理想，重点是系统监控和问题定位。</li>
+  <li>还是缓存。对数据缓存还是页面缓存，是否能把数据加个版本来优化缓存，这些都有过一点点思考，但离我撤出项目组已为时不远。版本的想法来自一个J2EE的设计模式，后来看了一下Vector Clock算法有关的一些资料，仿佛我我的想法也有点接近。现在一些像Twitter这样的产品，不知是否有这样做，一直没时间再深入探讨。</li>
+</ol>
+
+<p>做得不错的一些点：</p>
+
+<ol>
+  <li>策划和技术的配合比较默契，能够理解信任。对项目型的小组来讲相对容易做到一些，但也不绝对，要看人。比较值得提的是一个过度的设计，用了一个版本进行重构，来删除一个关联表。这个版本就干这件事，虽然工作量不小，但对策划来说什么东西都没增加。得到支持去做。因为计划比较细，所以过程很顺利。</li>
+  <li>单元测试和持续集成。前者是后者的基础，从量来说可以说OK了，当然在进度与质量的平衡之后，不可能每个单元测试做得很仔细，把边界情况都考虑完。但完整的单元测试是重构的基础，重上面说的那个重构效果来讲，单元测试做得还是算及格。</li>
+</ol>
+
+<p>在技术的管理上，因为团队小，而且项目从规模来讲，我作为Team Leader还是能够了解到里面每一部分。因此效率上还OK。但如果项目规模再大一点，就需要很多中间的层次。这个就复杂了。</p>
+
+<p>如何让一些关键的技术信息、技术决定能够浮到上层管理者那里来，而又能有效地过滤一些细节？对技术管理者来说，这是非常困难的一件事。要不就是完全只看进度，只从直接下属那里获取信息，退化成一个纯领导。要不你面对大量的技术细节信息的轰炸。有一些人是这样：自己不熟悉的领域，就交给下面去自己决定，自己很熟的，就到处插一脚做决定。这样也是常见的，只是要提防：领导熟悉的一环不要变成一个最弱的环节。因为你官大，手下就可能依赖你的决定，等你没空的时候，那块就没人出来做决定。</p>
+
+<p>在人的方面，能够找到很胜任岗位的人当然最好了，不过在这行做了这些年已经明白这个属于小概率事件。很多的时候要学会带新手去做艰巨的任务（这个也是可以拿出来吹嘘的经验），实在不行的要想办法换，要判断哪些地方是薄弱环节会出问题，要和Team的人多沟通理解人家的困难也要让人理解你，要坚持也要妥协，很多技能。。。</p>
+
+  </div><a class="u-url" href="/2010/04/25/pp-review/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Raymond&#39;s Blog</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Raymond&#39;s Blog</li><li><a class="u-email" href="mailto:raymond@raymondchen.com">raymond@raymondchen.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">raymondchen625</span></a></li><li><a href="https://www.twitter.com/raymondchen625"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">raymondchen625</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
