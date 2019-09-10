@@ -109,7 +109,7 @@ analytics:
 author:
   name             : "Raymond Chen"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "#Linux #Cloud #JavaScript #Networking"
+  bio              : "#Linux #Cloud #JavaScript #Go #Networking"
   location         : "Waterloo, ON, Canada"
   email            :
   links:
