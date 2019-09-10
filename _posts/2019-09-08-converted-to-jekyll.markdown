@@ -1,6 +1,7 @@
 ---
 title: Converted to Jekyll
 layout: post
+date: 2019-09-08T22:30:26-04:00
 ---
 Just finished migrating WordPress blog to GitHub Pages.
 
