@@ -2,7 +2,7 @@
 title: Categories unlinked
 author: Raymond
 layout: post
-date: 
+date: 2019-09-13T19:20:26-04:00
 categories:
   - Tech
 ---
