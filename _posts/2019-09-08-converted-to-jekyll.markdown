@@ -9,4 +9,4 @@ Text in my posts are fine. But some pictures are lost. Most of them were already
 
 Anyway, Jekyll seems cool. Love the idea of all-static pages blog.
 
-![jekyll]({{ site.baseurl }}/09/jekyll.png)
+![jekyll]({{ site.baseurl }}/wp-content/uploads/2019/09/jekyll.png)
