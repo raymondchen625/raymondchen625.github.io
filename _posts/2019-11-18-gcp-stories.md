@@ -7,7 +7,7 @@ categories:
   - Tech
 ---
 I've been working on GCP lately. Having a lot of fun, learning stuffs and running into problems.
-<img class="alignnone size-full wp-image-1653" src="/wp-content/uploads/2019/09//11/google-cloud-logo-bigger.png" alt="gke" width="700" height="262" srcset="/wp-content/uploads/2019/09//11/google-cloud-logo-bigger.png 700w, /wp-content/uploads/2019/09//11/google-cloud-logo-bigger.png 300w" sizes="(max-width: 700px) 100vw, 700px" /> 
+<img class="alignnone size-full wp-image-1653" src="/wp-content/uploads/2019/09/11/google-cloud-logo-bigger.png" alt="gke" width="700" height="262" srcset="/wp-content/uploads/2019/09/11/google-cloud-logo-bigger.png 700w, /wp-content/uploads/2019/09/11/google-cloud-logo-bigger.png 300w" sizes="(max-width: 700px) 100vw, 700px" /> 
 There are several bugs of GCP I have run into:
   1. I couldn't start several stopped VM instances one morning. It gave me an error code and asked me to contact Google support. But after a few minutes, it worked again.
   2. Extra files showed up in my Filestore share. They ended with ":zoneIdentifier" with the same name of existing files as the former part.
