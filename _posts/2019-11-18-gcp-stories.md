@@ -16,7 +16,7 @@ There are several bugs of GCP I have run into:
 
 Some things related to Load Balancer need to remember:
   1. HTTP has better performance than TCP in general. (Keep-alive helps)
-  2. The timeout setting sometimes needs to be tuned so it can work with long requrests.
+  2. The timeout setting sometimes needs to be tuned so it can work with long requests.
 
 About Terraform:
   1. Separate files into different logical units.
