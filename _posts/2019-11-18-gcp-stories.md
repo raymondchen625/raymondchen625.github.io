@@ -1,6 +1,6 @@
 ---
 title: GCP Stories
-date: 2009-11-19T21:21:09-05:00
+date: 2019-11-19T21:21:09-05:00
 author: Raymond
 layout: post
 categories:
