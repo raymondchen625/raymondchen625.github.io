@@ -18,7 +18,6 @@ Read the book [Http: The Definitive Guide: The Definitive Guide](https://www.goo
 * TIME_WAIT accumulation caused by 2MSL (Holding the port for a while even TCP connection is closed)
 * TCP handshake review: SYN-SYN/ACK-ACK and FIN-ACK-FIN-ACK
 * HTTP connection performance improvement: 1. Parrallel connections; 2. Persistent connections (Reuse); 3. Pipeline connections(Concurrent HTTP reqs on TCP connection); 4. Multiplexed connections.
-* Determine the end of HTTP data.
 * Keepalive is phased out in HTTP 1.1. HTTP/1.1 persistent connections are active by default (unless explicitly set to 'close'.
 * Closing the input channel of your connection is riskier, unless you know the other side doesn’t plan to send any more data. If the other side sends data to your closed input channel, the operating system will issue a TCP “connection reset by peer” message back to the other side’s machine.
 * Strictly speaking, proxies connect two or more applications that speak the same protocol, while gateways hook up two or more parties that speak different protocols. 
