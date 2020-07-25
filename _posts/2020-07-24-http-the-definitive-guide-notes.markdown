@@ -1,5 +1,5 @@
 ---
-title: HTTP The Definitive Guide Nots
+title: HTTP The Definitive Guide Notes
 author: Raymond
 layout: post
 date: 2020-07-24T21:13:25-04:00
@@ -35,4 +35,4 @@ Read the book [Http: The Definitive Guide: The Definitive Guide](https://www.goo
 * Charset Is Poorly Named - Technically, the MIME charset tag (used in the Content-Type charset parameter and the Accept-Charset header) doesn’t specify a character set at all.
 * URIs essentially consist of a restricted subset of ASCII characters.
 * The HTTP/1.1 specification does not define any mechanisms for transparent negotiation, but it does define the Vary header. Servers send Vary headers in their responses to tell intermediaries what request headers they use for content negotiation.
- 
+
