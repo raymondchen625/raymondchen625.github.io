@@ -1,0 +1,38 @@
+---
+title: Grafana
+author: Raymond
+layout: post
+date: 2021-01-10T10:50:58-05:00
+categories:
+  - Tech
+---
+
+I started reading the souce code of [Grafana](https://github.com/grafana). It was fun. This is not a tech note, just a record of my still on-going journey.
+
+I chose it because I thought it had the right size, not as big as Kubernetes, but not too small as a single-purpose CLI tool. It should be good for me to deep-dive in a real Golang open-source project.
+
+When I work on a new project, I ususally start with build and dev environment setup until I can do debugging by setting breakpoints. I ran into issues with building Grafana. One was related to the new default soft limit setting of macOS Big Sur, the other is on a file permission, also related to Big Sur. When these problems were solved, I was able to build from source and use 'make' to run it with test data sources and data in Docker containers.
+
+I then tried to set up the VSCode environment to launch it in debug mode. Starting from the [Makefile](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/make.html), I learnt [Bra](https://github.com/unknwon/bra), which is a nice tool to run things while monitoring changes to recomplie/rerun if needed. The project doesn't come with a VSCode launch.json. So I defined one, basically pointing the program field to the 'grafana-server' folder, not the 'main.go' file. I could set breakpoints now!
+
+I went through the documentation of user manual to understand some basic concepts first. I had already had some experience in helping people installing it. But I hadn't read the whole doc structure before. So I did that. There were also the [developer guide](https://github.com/grafana/grafana/blob/master/contribute/developer-guide.md), which helped me getting some understanding on some important architecutral aspects. They were very helpful in my later code reading.
+
+I could choose from Sqlite/MySQL/Progresql. I went with the default [Sqlite](https://sqlite.org/). It was easy to learn. Although I hadn't used it a lot before, it took me only less than 30 minutes to go through its docs before I was comfortable enough to continue with other things. 
+
+I needed Time Series data to actually show curves on my test dashboards. [InfluxDB](https://www.influxdata.com/) and [Telegraf](https://github.com/influxdata/telegraf) took longer time than Sqlite did. The main roadblock was that in Grafana's InfluxDB data source, the query language should be Flux instead of the default InfluxQL when InfluxDB is version 2. Once I figured that out, I could have Telegraf collect host data of my MacBook and send it to InfluxDB. And I could define the InfluxDB data source in Grafana dashboard. I could see the curves!
+
+Above were all the plumbing before I could really look at the code, except for the build files.
+
+Now I was looking at the code, I found it's like Java or other languages, there are always some frameworks for things like ORM, REST Routing, IoC/DI and Logging. I'm just listing them below. The list is incomplete, and for some of them I only got time to learn the basics:
+
+* Service Bus - Grafana uses a bus, or service registry, to register all services on startup. When a service is needed, the code ask the bus for it.
+* Injection - Grafana uses the inject package to inject dependencies during runtime.
+* ORM - [XORM](https://github.com/go-xorm/xorm) is used. Grafana uses SQLStore to wrap the XORM operations.
+* DB Migration - DB migration, including table creation for a new deployment, is performed in migrations.go#AddMigrations. A lot of implementation migrations are added in a certain order, each representing the evolution of a table. Migration always runs on startup. What to skipped is controlled by the data in table 'migration_log'. If a record with a specific key already exists, that operation will be skipped.
+* Logging - A house-made logging framework is in pkg/infra/log/. Most services or structs have their own Logger fields, which have their own names for logger identification in log messages.
+* Settings - Settings are stored in conf/default.ini and overridden by custom.ini if exists.
+* HTTP Server and Routing - Third-party fraework [Macaron](https://github.com/go-macaron/macaron) is used. Routes are grouped and registered in api.go.
+* Frontend - The Grafana frontend is a React app, which is a bunch of static web resources. They are built by Yarn on the /public folder. In a binary build this is already pre-built. When grafana-server runs as a web server, it also serves the React app as the GUI on the /public folder.
+* Models - The model objects are in package pkg/models/. The basically map to tables in the DB.
+
+Another thing I really love is the code-server. When I need to browser one or two file, I could remotely use my iPad or iPhone to view the project running in my Oracle cloud VM.
