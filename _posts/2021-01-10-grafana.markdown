@@ -32,7 +32,7 @@ Now I was looking at the code, I found it's like Java or other languages, there 
 * Logging - A house-made logging framework is in pkg/infra/log/. Most services or structs have their own Logger fields, which have their own names for logger identification in log messages.
 * Settings - Settings are stored in conf/default.ini and overridden by custom.ini if exists.
 * HTTP Server and Routing - Third-party fraework [Macaron](https://github.com/go-macaron/macaron) is used. Routes are grouped and registered in api.go.
-* Frontend - The Grafana frontend is a React app, which is a bunch of static web resources. They are built by Yarn on the /public folder. In a binary build this is already pre-built. When grafana-server runs as a web server, it also serves the React app as the GUI on the /public folder.
+* Frontend - The Grafana frontend is a React app mixed with Angular, which is a bunch of static web resources. They are built by Yarn on the /public folder. In a binary build this is already pre-built. When grafana-server runs as a web server, it also serves the React app as the GUI on the /public folder.
 * Models - The model objects are in package pkg/models/. The basically map to tables in the DB.
 
 Another thing I really love is the code-server. When I need to browser one or two file, I could remotely use my iPad or iPhone to view the project running in my Oracle cloud VM.
