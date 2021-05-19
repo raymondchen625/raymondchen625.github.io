@@ -15,12 +15,12 @@ I bought another same desk. Putting them together orthogonally. The extra desk s
 
 The dongo provided by my company is really good. It has an RJ-45 port, which is connected to my powerline adapter to get stable wired Internet connection. There is a USB-C power input, HDMI and USB-A port of course. I only need to unplug one connector if I need to take the MacBook to somewhere else.
 
-My old Insignia monitor has an audio output. I thought it was useless but now it becomes pretty useful. I don't have to connect the audio cable to my MacBook directly. I connect it to my old monitor. One less cable to unplug.
+My old Insignia monitor has an audio output. I had thought it was useless but now it becomes pretty useful. I don't have to connect the audio cable to my MacBook directly. I connect it to my old monitor. One less cable to unplug.
 
-Because I put my macbook on my left side, sometimes it feels weird when audio always comes from my left. So I use my old small Logitech speacker to solve the problem. There is a audio output on that speacker. When I need good audio quality, I plug in the cable connected to a sound bar with bass booster. 
+Because I put my macbook on my left side, sometimes it feels weird when audio comes from my left. So I use my old small Logitech speakers to solve the problem. There is an audio output on one of the speakers. When I need good audio quality, I plug in the cable connected to an old sound bar with bass booster. 
 
-Insinia monitor, Logitec speaker and the sound bar are all old equipments, which I hadn't used for a long time. It's great to revive them!
+The Insignia monitor, Logitec speakers and the sound bar are all old equipments, which I hadn't used for a long time. It's great to revive them!
 
-I connect both an HDMI cable and a DP cable to my new monitor. I could use it for my personal MacBook if I want. 
+I connect both an HDMI and a DP cables to my new monitor. I could use it for my personal MacBook if I want. 
 
 There are more minor improvments. I think it's an iterative process. I need to work for a few weeks then figure out what else can be improved.
