@@ -7,7 +7,7 @@ categories:
   - Life
 ---
 
-![Alt Text](../wp-content/uploads/2021/05/home_office_2021.05.19.png)
+![Raymond's Office](../../wp-content/uploads/2021/05/home_office_2021.05.19.png)
 
 Before starting my new remote job, I spent some time setting up my home office. I didn't want to buy things when WFH was temporary. Now that it becomes permanent, I have good reasons to improve it to make my work more productive.
 
